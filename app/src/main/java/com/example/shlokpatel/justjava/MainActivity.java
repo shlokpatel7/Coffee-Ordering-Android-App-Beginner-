@@ -55,11 +55,16 @@ public class MainActivity extends AppCompatActivity {
         boolean hasch = chcheckBox.isChecked();
         EditText name = (EditText) findViewById(R.id.name_desc);
         String gname = name.getText().toString();
-//        if(gname==null)
-//            Toast.makeText(getApplicationContext(),"Please fill in the name",Toast.LENGTH_SHORT);
+
         int price = calculatePrice(haswc, hasch);
         String pricemessage = createOrderSummary(price, haswc, hasch, gname);
-        if (gname != null && quantity != 0) {
+        if (gname.isEmpty()) {
+            Toast.makeText(getApplicationContext(),"Enter username",Toast.LENGTH_SHORT).show();
+        }
+        else if(quantity==0){
+            Toast.makeText(getApplicationContext(),"Order can't be empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:")); // only email apps should handle this
             intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java order for " + gname);
